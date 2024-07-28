@@ -11,5 +11,13 @@
     },
     "action": {
         "default_popup": "popup.html"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://chatgpt.com/c/*"
+            ],
+            "js": ["./scripts/content.js"]
+        }
+    ]
 }
