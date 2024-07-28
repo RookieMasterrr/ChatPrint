@@ -1,4 +1,4 @@
-consoleg('content.js')
+console.log("content.js")
 
 let element_length = 0
 
@@ -17,10 +17,25 @@ const observer = new MutationObserver((mutationsList, observer) => {
                 element_length = elements.length
                 // 新增input
                 elements.forEach((element, index) => {
+
+                    const secondChild = element.firstChild.firstChild;
+                    const thirdChild = secondChild.firstChild
+
+                    if(thirdChild.tagName=="INPUT") {
+                        return;
+                    }
+
                     const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox'
                     checkbox.checked = true
-                    element.parentNode.insertBefore(checkbox, element);
+                    checkbox.style.position = "relative";
+                    checkbox.style.top = "8px"; // Move the new element down by 100px
+                    checkbox.style.left = "10px"
+                    if(index %2 == 0) {
+                        checkbox.style.left = "780px"
+                        checkbox.style.top = "13px"; // Move the new element down by 100px
+                    }
+                    secondChild.insertBefore(checkbox, thirdChild)
                 });
             }
         }
