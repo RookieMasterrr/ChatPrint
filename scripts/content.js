@@ -88,15 +88,21 @@ function output() {
     div.style.pageBreakInside = "avoid"; /* 避免元素内部分页 */
 
     let opt = {
-        margin:       1,
+        margin:       [0.5, -0.3, 0, 0],
         filename:     'my-document.pdf',
-        image:        { type: 'jpeg', quality: 1 },
-        // html2canvas:  { scale: 2 , backgroundColor: '#000', width: "1920px", height: "1080px"},
-        html2canvas:  { scale: 2 , backgroundColor: '#000'},
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all'] }
       };
-      // 调用html2pdf.js生成PDF
+
+    // let opt = {
+    //     margin:       1,
+    //     filename:     'myfile.pdf',
+    //     image:        { type: 'jpeg', quality: 0.98 },
+    //     html2canvas:  { scale: 2 },
+    //     jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    // };
+
+    // 调用html2pdf.js生成PDF
     html2pdf().from(div).set(opt).save();
 }
 
@@ -110,7 +116,17 @@ function collect() {
             const thirdChild = secondChild.firstChild
             if(thirdChild.tagName=="INPUT") {
                 if (thirdChild.checked == true) {
+                    // 收集整个元素?
+                    // const newNode = element.cloneNode(true)
+                    // DIV.appendChild(newNode)
+
+                    // 只收集有效元素?
+                    // const newNode = element.firstChild.firstChild.cloneNode(true)
+                    // DIV.appendChild(newNode)
+
+                    // 收集整个元素后清除input
                     const newNode = element.cloneNode(true)
+                    newNode.firstChild.firstChild.firstChild.style.display='none'
                     DIV.appendChild(newNode)
                 }
             }
