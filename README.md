@@ -5,6 +5,8 @@
 ![alt text](./static-files/image-1.png)
 ![alt text](./static-files/image-2.png)
 
+> you can click the checkbox near the Question or Answer provided by ChatGPT, then click the Transform to PDF button, then the PDF file will be downloaded
+
 ## after:
 [after transform](static-files/my-document.pdf)
 
