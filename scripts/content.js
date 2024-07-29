@@ -85,12 +85,16 @@ function getSubmitButton() {
 
 function output() {
     const div = collect()
+    div.style.pageBreakInside = "avoid"; /* 避免元素内部分页 */
+
     let opt = {
         margin:       1,
         filename:     'my-document.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        image:        { type: 'jpeg', quality: 1 },
+        // html2canvas:  { scale: 2 , backgroundColor: '#000', width: "1920px", height: "1080px"},
+        html2canvas:  { scale: 2 , backgroundColor: '#000'},
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all'] }
       };
       // 调用html2pdf.js生成PDF
     html2pdf().from(div).set(opt).save();
