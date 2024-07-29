@@ -6,7 +6,6 @@ const observer = new MutationObserver((mutationsList, observer) => {
 
     for(let mutation of mutationsList) {// iterate the mutation
         if(mutation.type == "childList") {// focus on childList event
-            
 
             if(ifBtnExist()) {
             }else {
@@ -26,6 +25,11 @@ const observer = new MutationObserver((mutationsList, observer) => {
                     const thirdChild = secondChild.firstChild
                     // check if exist the checkbox
                     if(thirdChild.tagName=="INPUT") {
+                        // special case, sometimes the first question's input box will occur in left side
+                        if( index==0 && thirdChild.style.left=="10px") {
+                            thirdChild.style.left = "780px"
+                            thirdChild.style.top = "13px" 
+                        }
                         return
                     }
                     const checkbox = getCheckBox(index)
@@ -54,8 +58,7 @@ function getCheckBox(index) {
     checkbox.style.position = "relative"
     checkbox.style.top = "8px"
     checkbox.style.left = "10px"
-    if(index % 2 === 0) {
-        console.log('index =', index)
+    if(index % 2 == 0) {
         checkbox.style.left = "780px"
         checkbox.style.top = "13px" 
     }
