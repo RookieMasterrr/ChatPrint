@@ -17,7 +17,8 @@
             "matches": [
                 "https://chatgpt.com/*"
             ],
-            "js": ["./scripts/content.js", "./scripts/html2pdf.bundle.min.js", "./scripts/myfunction.js"]
+                "js": ["./scripts/html2pdf.bundle.min.js", "./scripts/myfunction.js", "./scripts/content.js"],
+            "type": "module"
         }
     ]
 }
