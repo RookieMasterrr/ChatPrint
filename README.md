@@ -16,3 +16,6 @@
 3. Click the Load unpacked button and select the extension directory, like below.
 
 ![alt text](./static-files/image.png)
+
+## Known Bugs for now
+Only available when you login in.
