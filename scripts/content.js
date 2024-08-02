@@ -1,5 +1,4 @@
 
-console.log("content.js")
 
 
 const observer = new MutationObserver((mutationsList, observer) => {
@@ -10,10 +9,16 @@ const observer = new MutationObserver((mutationsList, observer) => {
             if(ifBtnExist()) {
             }else {
                 const submitBtn = getSubmitButton()
+                const selectAllBtn = getSelectAllButton()
+                const cancelAllBtn = getCancelAllButton()
                 // mount the button
                 const parent = document.querySelector('.md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full')
                 const firstChild = parent.firstChild
+
+                parent.insertBefore(selectAllBtn, firstChild)
+                parent.insertBefore(cancelAllBtn, firstChild)
                 parent.insertBefore(submitBtn, firstChild)
+                
             }
 
             // iterate the Q and A
@@ -35,6 +40,7 @@ const observer = new MutationObserver((mutationsList, observer) => {
                     const checkbox = getCheckBox(index)
                     // mount the checkbox
                     secondChild.insertBefore(checkbox, thirdChild)
+
                 })
             }
         }
@@ -83,13 +89,84 @@ function getSubmitButton() {
     submitBtn.style.fontSize = 'inherit'
     submitBtn.style.lineHeight = 'inherit'
     submitBtn.style.position = 'relative'
-    submitBtn.style.marginLeft = '200px'
+    submitBtn.style.marginLeft = '20px'
     
     submitBtn.addEventListener('click', ()=> {
         output()
     })
 
     return submitBtn
+}
+
+function getSelectAllButton() {
+    let selectAllBtn = document.createElement('button')
+    selectAllBtn.textContent = "Select All"
+    
+    selectAllBtn.style.all = 'unset'
+    selectAllBtn.style.display = 'inline-block'
+    selectAllBtn.style.padding = '2px 6px'
+    selectAllBtn.style.border = '1px solid black'
+    selectAllBtn.style.backgroundColor = 'white'
+    selectAllBtn.style.cursor = 'pointer'
+    selectAllBtn.style.fontFamily = 'inherit'
+    selectAllBtn.style.fontSize = 'inherit'
+    selectAllBtn.style.lineHeight = 'inherit'
+    selectAllBtn.style.position = 'relative'
+    selectAllBtn.style.marginLeft = '200px'
+    
+    selectAllBtn.addEventListener('click', ()=> {
+        selectAll()
+    })
+
+    return selectAllBtn
+
+}
+function getCancelAllButton() {
+    let cancelAllBtn = document.createElement('button')
+    cancelAllBtn.textContent = "Cancel All"
+    
+    cancelAllBtn.style.all = 'unset'
+    cancelAllBtn.style.display = 'inline-block'
+    cancelAllBtn.style.padding = '2px 6px'
+    cancelAllBtn.style.border = '1px solid black'
+    cancelAllBtn.style.backgroundColor = 'white'
+    cancelAllBtn.style.cursor = 'pointer'
+    cancelAllBtn.style.fontFamily = 'inherit'
+    cancelAllBtn.style.fontSize = 'inherit'
+    cancelAllBtn.style.lineHeight = 'inherit'
+    cancelAllBtn.style.position = 'relative'
+    cancelAllBtn.style.marginLeft = '20px'
+    
+    cancelAllBtn.addEventListener('click', ()=> {
+        cancelAll()
+    })
+
+    return cancelAllBtn
+
+}
+
+function cancelAll() {
+    const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+
+    if(elements.length!==0) {
+        elements.forEach((element, index) => {
+            const secondChild = element.firstChild.firstChild
+            const thirdChild = secondChild.firstChild
+             thirdChild.checked = false
+        })
+    }
+}
+
+function selectAll() {
+    const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+
+    if(elements.length!==0) {
+        elements.forEach((element, index) => {
+            const secondChild = element.firstChild.firstChild
+            const thirdChild = secondChild.firstChild
+             thirdChild.checked = true
+        })
+    }
 }
 
 /**
