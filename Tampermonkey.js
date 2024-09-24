@@ -18,7 +18,6 @@
 
 
 
-
     const observer = new MutationObserver((mutationsList, observer) => {
 
         for(let mutation of mutationsList) {// iterate the mutation
@@ -43,10 +42,10 @@
                     elements.forEach((element, index) => {
                         if(element.children[1].children[0].children[0].tagName=="INPUT") {
                             // special case, sometimes the first question's input box will occur in left side
-                            // if( index==0 && thirdChild.style.left=="10px") {
-                            //     thirdChild.style.left = "780px"
-                            //     thirdChild.style.top = "13px" 
-                            // }
+                            if( index==0 && element.children[1].children[0].children[0].style.left=="10px") {
+                                element.children[1].children[0].children[0].style.left = "780px"
+                                element.children[1].children[0].children[0].style.top = "13px" 
+                            }
                             return
                         }
                         const checkbox = getCheckBox(index)
