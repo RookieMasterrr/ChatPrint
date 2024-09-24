@@ -23,8 +23,7 @@
 
         for(let mutation of mutationsList) {// iterate the mutation
             if(mutation.type == "childList") {// focus on childList event
-    
-                if(ifBtnExist()) {
+                if(ifBtnExist()) { // check the buttom button if exist
                 }else {
                     const submitBtn = getSubmitButton()
                     const selectAllBtn = getSelectAllButton()
@@ -32,40 +31,36 @@
                     // mount the button
                     const parent = document.querySelector('.md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full')
                     const firstChild = parent.firstChild
-    
                     parent.insertBefore(selectAllBtn, firstChild)
                     parent.insertBefore(cancelAllBtn, firstChild)
                     parent.insertBefore(submitBtn, firstChild)
-                    
                 }
     
                 // iterate the Q and A
-                const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+                const elements = document.querySelectorAll('article')
     
                 if(elements.length!==0) {
                     elements.forEach((element, index) => {
-                        const secondChild = element.firstChild.firstChild
-                        const thirdChild = secondChild.firstChild
-                        // check if exist the checkbox
-                        if(thirdChild.tagName=="INPUT") {
+                        if(element.children[1].children[0].children[0].tagName=="INPUT") {
                             // special case, sometimes the first question's input box will occur in left side
-                            if( index==0 && thirdChild.style.left=="10px") {
-                                thirdChild.style.left = "780px"
-                                thirdChild.style.top = "13px" 
-                            }
+                            // if( index==0 && thirdChild.style.left=="10px") {
+                            //     thirdChild.style.left = "780px"
+                            //     thirdChild.style.top = "13px" 
+                            // }
                             return
                         }
                         const checkbox = getCheckBox(index)
-                        // mount the checkbox
-                        secondChild.insertBefore(checkbox, thirdChild)
-    
+                        element.children[1].children[0].prepend(checkbox)
                     })
                 }
             }
         }
     })
     
-    observer.observe(document.body, { 
+    
+    const targetNode = document.querySelector('main')
+    
+    observer.observe(targetNode, { 
         childList: true, 
         subtree: true,
         attributes: true,
@@ -164,25 +159,21 @@
     }
     
     function cancelAll() {
-        const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+        const elements = document.querySelectorAll('article')
     
         if(elements.length!==0) {
             elements.forEach((element, index) => {
-                const secondChild = element.firstChild.firstChild
-                const thirdChild = secondChild.firstChild
-                 thirdChild.checked = false
+                element.children[1].children[0].children[0].checked = false
             })
         }
     }
     
     function selectAll() {
-        const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+        const elements = document.querySelectorAll('article')
     
         if(elements.length!==0) {
             elements.forEach((element, index) => {
-                const secondChild = element.firstChild.firstChild
-                const thirdChild = secondChild.firstChild
-                 thirdChild.checked = true
+                element.children[1].children[0].children[0].checked = true
             })
         }
     }
@@ -210,25 +201,15 @@
     function collect() {
         const DIV = document.createElement("div")
         // 遍历回答和问题
-        const elements = document.querySelectorAll('div.w-full.text-token-text-primary')
+        const elements = document.querySelectorAll('article')
         if(elements.length!==0) {
             elements.forEach((element, index) => {
-                const secondChild = element.firstChild.firstChild
-                const thirdChild = secondChild.firstChild
-                if(thirdChild.tagName=="INPUT") {
-                    if (thirdChild.checked == true) {
-                        // 收集整个元素?
-                        // const newNode = element.cloneNode(true)
-                        // DIV.appendChild(newNode)
-    
-                        // 只收集有效元素?
-                        // const newNode = element.firstChild.firstChild.cloneNode(true)
-                        // DIV.appendChild(newNode)
-    
+                if(element.children[1].children[0].children[0].tagName=="INPUT") {
+                    if (element.children[1].children[0].children[0].checked == true) {
                         // 收集整个元素后清除input
                         const newNode = element.cloneNode(true)
-                        newNode.firstChild.firstChild.firstChild.style.display='none'
-                        DIV.appendChild(newNode)
+                        newNode.children[1].children[0].children[0].style.display='none'
+                        DIV.append(newNode.children[1]) // matter
                     }
                 }
             })
