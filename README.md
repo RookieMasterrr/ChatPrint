@@ -1,5 +1,9 @@
+Unavailable now, due to the changing of the DOM structure of the https://chatgpt.com/
+
 # ChatPrint
 > Turn your chatgpt answer to pdf
+
+[greasyfork link](https://greasyfork.org/en/scripts/502142-chatpdf)
 
 ## before:
 ![alt text](./static-files/image-1.png)
